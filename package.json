@@ -2,10 +2,17 @@
   "name": "photosorter",
   "version": "1.0.0",
   "description": "Electron app used to sort photos base on people in the photo",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^32.1.0"
+  },
+  "dependencies": {
+    "photosorter": "file:"
+  }
 }
