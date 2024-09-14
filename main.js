@@ -1,8 +1,11 @@
 const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron/main')
 const path = require('node:path')
+const fileHandler  = require('./fileHandler');
+const { webContents } = require('electron');
 
+let win;
 function createWindow() {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
@@ -15,9 +18,16 @@ function createWindow() {
 
 
 
-ipcMain.handle('file:open', () => {
-    const { dialog } = require('electron')
-    console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
+ipcMain.handle('file:open', async () => {
+    let handler = new fileHandler();
+    return await handler.openDialog();
+})
+
+ipcMain.handle('file:firstPhoto', async (_, directory) => {
+    let handler = new fileHandler();
+    let files = await handler.getDirectory(directory[0]);
+    return files[1];
+
 })
 
 
