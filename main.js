@@ -26,8 +26,7 @@ ipcMain.handle('file:open', async () => {
 ipcMain.handle('file:firstPhoto', async (_, directory) => {
     let handler = new fileHandler();
     let files = await handler.getDirectory(directory[0]);
-    return files[1];
-
+    return files[0];
 })
 
 
