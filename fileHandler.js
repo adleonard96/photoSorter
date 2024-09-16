@@ -17,6 +17,7 @@ module.exports = class fileHandler{
 
     async getDirectory(folder) {
         fileHandler.#directory = (await fs.readdir(folder)).filter(this.#isPhotoFile);
+        fileHandler.#currentPhotoPosition = 0;
         return fileHandler.#directory;
     }
 
@@ -25,7 +26,7 @@ module.exports = class fileHandler{
     }
 
     getNextPhoto() {
-        if(fileHandler.#currentPhotoPosition < fileHandler.#directory.length){
+        if(fileHandler.#currentPhotoPosition === (fileHandler.#directory.length - 1)){
             return;
         } 
         fileHandler.#currentPhotoPosition ++;
@@ -50,8 +51,9 @@ module.exports = class fileHandler{
         let isAVIF = filename.toUpperCase().includes('.AVIF');
         let isGIF = filename.toUpperCase().includes('.GIF');
         let isJPEG = filename.toUpperCase().includes('.JPEG');
+        let isJPG = filename.toUpperCase().includes('.JPG');
         let isPNG = filename.toUpperCase().includes('.PNG');
         let isSVG = filename.toUpperCase().includes('.SVG');
-        return isAPNG || isAVIF || isGIF || isJPEG || isPNG || isSVG;
+        return isAPNG || isAVIF || isGIF || isJPEG || isPNG || isSVG || isJPG;
     }
 }

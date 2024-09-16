@@ -29,6 +29,15 @@ ipcMain.handle('file:firstPhoto', async (_, directory) => {
     return files[0];
 })
 
+ipcMain.handle('file:nextPhoto', async () => {
+    let handler = new fileHandler();
+    return handler.getNextPhoto();
+})
+
+ipcMain.handle('file:previousPhoto', async () => {
+    let handler = new fileHandler();
+    return handler.getPreviousPhoto();
+})
 
 
 app.whenReady().then(() => {

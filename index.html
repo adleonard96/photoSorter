@@ -8,21 +8,30 @@
   <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
 
-<body>
-  <h1>Welcome To Picture Sorter!</h1>
-  <p>Open the source folder and it will get all the files in it</p>
-  <p>It will display the picture and you just sort however you want!</p>
-
-  <p>Current folder selected: <strong id='folder'></strong></p>
-  <button id="open-file">open folder</button>
-  <script src="renderer.js"></script>
-  <div>
-    <img src="" id="imageDude" height="50%" width="50%">
-  </div>
-  <div>
-    <button id="previous-photo">previous photo</button>
-    <button id="next-photo">next photo</button>
-  </div>
-</body>
+<div>
+  <body>
+    <h1>Welcome To Picture Sorter!</h1>
+    <p>Open the source folder and it will get all the files in it</p>
+    <p>It will display the picture and you just sort however you want!</p>
+  
+    <p>Current folder selected: <strong id='folder'></strong></p>
+    <button id="open-file">open folder</button>
+    <div>
+      <img src="" id="imageDude" height="50%" width="50%">
+      <form id="photo-grouping-form">
+        <label for="photo-grouping-input">Input new grouping</label>
+        <input type="text" id="photo-grouping-input" name="photo-grouping-input"> 
+      </form>
+      <form id="sort-options">
+        
+      </form>
+    </div>
+    <div>
+      <button id="previous-photo">previous photo</button>
+      <button id="next-photo">next photo</button>
+    </div>
+  </body>
+</div>
+<script src="renderer.js"></script>
 
 </html>
