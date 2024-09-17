@@ -17,7 +17,6 @@ function createWindow() {
 }
 
 
-
 ipcMain.handle('file:open', async () => {
     let handler = new fileHandler();
     return await handler.openDialog();
@@ -37,6 +36,11 @@ ipcMain.handle('file:nextPhoto', async () => {
 ipcMain.handle('file:previousPhoto', async () => {
     let handler = new fileHandler();
     return handler.getPreviousPhoto();
+})
+
+ipcMain.handle('file:sortOption', async (_, options) => {
+    fileHandler.sortOptions.push(options[0]);
+    
 })
 
 

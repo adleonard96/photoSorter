@@ -2,19 +2,30 @@
 const { dialog } = require('electron')
 const fs = require('fs/promises');
 
-module.exports = class fileHandler{
-    constructor(){};
+module.exports = class fileHandler {
+    constructor() { };
 
-    /*dirstory: string[] */
+    /**
+     * @type {string[]} 
+     */
     static #directory = [];
     static #currentPhotoPosition = 0;
+
+    /**
+     * @type {string[]}
+     */
+    static sortOptions = [];
 
     async openDialog() {
         let result = await dialog.showOpenDialog({ properties: ['openDirectory'] });
         return result.filePaths;
     }
 
-
+    /**
+     * 
+     * @param {string} folder 
+     * @returns 
+     */
     async getDirectory(folder) {
         fileHandler.#directory = (await fs.readdir(folder)).filter(this.#isPhotoFile);
         fileHandler.#currentPhotoPosition = 0;
@@ -26,15 +37,15 @@ module.exports = class fileHandler{
     }
 
     getNextPhoto() {
-        if(fileHandler.#currentPhotoPosition === (fileHandler.#directory.length - 1)){
+        if (fileHandler.#currentPhotoPosition === (fileHandler.#directory.length - 1)) {
             return;
-        } 
+        }
         fileHandler.#currentPhotoPosition ++;
         return fileHandler.#directory[fileHandler.#currentPhotoPosition];
     }
 
     getPreviousPhoto() {
-        if(fileHandler.#currentPhotoPosition === 0){
+        if (fileHandler.#currentPhotoPosition === 0) {
             return;
         }
         fileHandler.#currentPhotoPosition --;
@@ -46,7 +57,7 @@ module.exports = class fileHandler{
      * @param {string} filename
      * @returns {boolean} 
      */
-    #isPhotoFile(filename){
+    #isPhotoFile(filename) {
         let isAPNG = filename.toUpperCase().includes('.APNG');
         let isAVIF = filename.toUpperCase().includes('.AVIF');
         let isGIF = filename.toUpperCase().includes('.GIF');
@@ -55,5 +66,13 @@ module.exports = class fileHandler{
         let isPNG = filename.toUpperCase().includes('.PNG');
         let isSVG = filename.toUpperCase().includes('.SVG');
         return isAPNG || isAVIF || isGIF || isJPEG || isPNG || isSVG || isJPG;
+    }
+
+    /**
+     * 
+     * @param {string} name 
+     */
+    static async checkForFolder(name){
+        
     }
 }

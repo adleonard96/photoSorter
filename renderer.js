@@ -1,3 +1,4 @@
+
 // const { ipcRenderer } = require("electron/renderer");
 let result;
 
@@ -16,12 +17,14 @@ document.getElementById('previous-photo').addEventListener('click', async () => 
 document.getElementById('next-photo').addEventListener('click', async () => {
     let photo = await window.fileHandler.getNextPhoto();
     document.getElementById('imageDude').src = result + '\\' + photo;
+    console.log(document.getElementById('sort-options'))
 })
 
+// const fileHandler = require("./fileHandler");
 document.getElementById('photo-grouping-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     let inputVal = document.getElementById('photo-grouping-input').value;
-    console.log(inputVal);
+    fileHandler.sortOptions.push(inputVal);
     document.getElementById('photo-grouping-input').value = '';
     document.getElementById('sort-options').innerHTML = document.getElementById('sort-options').innerHTML + `<label><input type="checkbox" id="${inputVal}" value="${inputVal}" />${inputVal}</label>`
 })
