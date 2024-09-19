@@ -6,4 +6,5 @@ contextBridge.exposeInMainWorld('fileHandler', {
     getPreviousPhoto: () => ipcRenderer.invoke('file:previousPhoto'),
     getNextPhoto: () => ipcRenderer.invoke('file:nextPhoto'),
     addSortOption: (option, folder) => ipcRenderer.invoke('file:AddSortOption', [option, folder]), 
+    copyPhoto: (photoPath, rootPath, copyFolders) => ipcRenderer.invoke('file:copyPhoto', [photoPath, rootPath, copyFolders])
 })

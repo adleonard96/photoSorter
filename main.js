@@ -46,6 +46,12 @@ ipcMain.handle('file:AddSortOption', async (_, options) => {
     await fileHandler.createFolder(option, folder);
 })
 
+ipcMain.handle('file:copyPhoto', async (_, options) => {
+    let [photoPath, rootPath, copyFolders] = options;
+    for(let folder of copyFolders){
+        await fileHandler.copyPhoto(rootPath+'\\'+photoPath, rootPath+'\\'+folder+'\\'+photoPath);
+    }
+})
 
 app.whenReady().then(() => {
     createWindow()

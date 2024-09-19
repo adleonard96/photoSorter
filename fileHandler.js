@@ -86,4 +86,8 @@ module.exports = class fileHandler {
     static async createFolder(name, folder){
         await fs.mkdir(folder + '\\' + name);
     }
+
+    static async copyPhoto(photoPath, newPath){
+        await fs.copyFile(photoPath, newPath);
+    }
 }

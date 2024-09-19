@@ -1,22 +1,24 @@
 
 // const { ipcRenderer } = require("electron/renderer");
 let result;
+let currentPhoto;
 
 document.getElementById('open-file').addEventListener('click', async () => {
     result = await window.fileHandler.open();
     document.getElementById('folder').innerHTML = result;
-    let firstPhoto = await window.fileHandler.getFirstPhoto(result);
-    document.getElementById('imageDude').src = result + '\\' + firstPhoto;
+    currentPhoto = await window.fileHandler.getFirstPhoto(result);
+    document.getElementById('imageDude').src = result + '\\' + currentPhoto;
 })
 
 document.getElementById('previous-photo').addEventListener('click', async () => {
-    let photo = await window.fileHandler.getPreviousPhoto();
-    document.getElementById('imageDude').src = result + '\\' + photo;
+    currentPhoto = await window.fileHandler.getPreviousPhoto();
+    document.getElementById('imageDude').src = result + '\\' + currentPhoto;
 })
 
 document.getElementById('next-photo').addEventListener('click', async () => {
-    let photo = await window.fileHandler.getNextPhoto();
-    document.getElementById('imageDude').src = result + '\\' + photo;
+    let photoPath = `${currentPhoto}`;
+    currentPhoto = await window.fileHandler.getNextPhoto();
+    document.getElementById('imageDude').src = result + '\\' + currentPhoto;
     let checkedElements = [];
     document.querySelectorAll('input:checked').forEach((element) => {
         checkedElements.push(element.value);
@@ -25,6 +27,7 @@ document.getElementById('next-photo').addEventListener('click', async () => {
         document.getElementById(element).checked = false;
     }
     
+    await window.fileHandler.copyPhoto(photoPath, result, checkedElements);
 })
 
 // const fileHandler = require("./fileHandler");
