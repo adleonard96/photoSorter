@@ -38,13 +38,12 @@ ipcMain.handle('file:previousPhoto', async () => {
     return handler.getPreviousPhoto();
 })
 
-ipcMain.handle('file:sortOption', async (_, options) => {
+ipcMain.handle('file:AddSortOption', async (_, options) => {
     let [option, folder] = options;
-    if(fileHandler.checkForFolder(option, folder)){
+    if(await fileHandler.checkForFolder(option, folder)){
         return;
-    }
-    
-    
+    }  
+    await fileHandler.createFolder(option, folder);
 })
 
 

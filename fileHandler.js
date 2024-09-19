@@ -77,4 +77,13 @@ module.exports = class fileHandler {
         let folderFound = (await fs.readdir(folder)).filter((fileName) => name.toLocaleLowerCase() === fileName.toLocaleLowerCase());
         return folderFound.length > 0;
     }
+
+    /**
+     * 
+     * @param {string} name 
+     * @param {string} folder
+     */
+    static async createFolder(name, folder){
+        await fs.mkdir(folder + '\\' + name);
+    }
 }

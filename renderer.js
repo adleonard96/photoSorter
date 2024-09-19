@@ -17,7 +17,14 @@ document.getElementById('previous-photo').addEventListener('click', async () => 
 document.getElementById('next-photo').addEventListener('click', async () => {
     let photo = await window.fileHandler.getNextPhoto();
     document.getElementById('imageDude').src = result + '\\' + photo;
-    console.log(document.getElementById('sort-options'))
+    let checkedElements = [];
+    document.querySelectorAll('input:checked').forEach((element) => {
+        checkedElements.push(element.value);
+    })
+    for(let element of checkedElements){
+        document.getElementById(element).checked = false;
+    }
+    
 })
 
 // const fileHandler = require("./fileHandler");
@@ -27,7 +34,7 @@ document.getElementById('photo-grouping-form').addEventListener('submit', async 
     let currentFolder = document.getElementById('folder').textContent;
     await window.fileHandler.addSortOption(inputVal, currentFolder);
     document.getElementById('photo-grouping-input').value = '';
-    document.getElementById('sort-options').innerHTML = document.getElementById('sort-options').innerHTML + `<label><input type="checkbox" id="${inputVal}" value="${inputVal}" />${inputVal}</label>`
+    document.getElementById('sort-options').innerHTML = document.getElementById('sort-options').innerHTML + `<label><input type="checkbox" id="${inputVal}" value="${inputVal}" name="sorting-values"/>${inputVal}</label>`
 })
 // ipcRenderer.on("get-folder-path", (_, folderPath) => {
 //     document.getElementById("folder").innerText = folderPath;
