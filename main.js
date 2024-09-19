@@ -39,7 +39,11 @@ ipcMain.handle('file:previousPhoto', async () => {
 })
 
 ipcMain.handle('file:sortOption', async (_, options) => {
-    fileHandler.sortOptions.push(options[0]);
+    let [option, folder] = options;
+    if(fileHandler.checkForFolder(option, folder)){
+        return;
+    }
+    
     
 })
 

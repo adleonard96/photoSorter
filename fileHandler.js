@@ -71,8 +71,10 @@ module.exports = class fileHandler {
     /**
      * 
      * @param {string} name 
+     * @param {string} folder
      */
-    static async checkForFolder(name){
-        
+    static async checkForFolder(name, folder){
+        let folderFound = (await fs.readdir(folder)).filter((fileName) => name.toLocaleLowerCase() === fileName.toLocaleLowerCase());
+        return folderFound.length > 0;
     }
 }

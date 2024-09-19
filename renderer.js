@@ -24,7 +24,8 @@ document.getElementById('next-photo').addEventListener('click', async () => {
 document.getElementById('photo-grouping-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     let inputVal = document.getElementById('photo-grouping-input').value;
-    fileHandler.sortOptions.push(inputVal);
+    let currentFolder = document.getElementById('folder').textContent;
+    await window.fileHandler.addSortOption(inputVal, currentFolder);
     document.getElementById('photo-grouping-input').value = '';
     document.getElementById('sort-options').innerHTML = document.getElementById('sort-options').innerHTML + `<label><input type="checkbox" id="${inputVal}" value="${inputVal}" />${inputVal}</label>`
 })
