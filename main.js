@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron/main')
 const path = require('node:path')
 const fileHandler  = require('./fileHandler');
 const { webContents } = require('electron');
+const Persistance = require('./Persistance');
 
 let win;
 function createWindow() {
@@ -63,8 +64,9 @@ app.whenReady().then(() => {
     })
 })
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
     if (process.platform !== 'darwin') {
+        await Persistance.savePosition();
         app.quit()
     }
 })

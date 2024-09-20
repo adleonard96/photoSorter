@@ -9,7 +9,8 @@ module.exports = class fileHandler {
      * @type {string[]} 
      */
     static #directory = [];
-    static #currentPhotoPosition = 0;
+    static currentPhotoPosition = 0;
+    static currentDirectory;
 
     /**
      * @type {string[]}
@@ -27,29 +28,30 @@ module.exports = class fileHandler {
      * @returns 
      */
     async getDirectory(folder) {
+        fileHandler.currentDirectory = folder;
         fileHandler.#directory = (await fs.readdir(folder)).filter(this.#isPhotoFile);
-        fileHandler.#currentPhotoPosition = 0;
+        fileHandler.currentPhotoPosition = 0;
         return fileHandler.#directory;
     }
 
     async getCurrentPhoto() {
-        return fileHandler.#directory[fileHandler.#currentPhotoPosition];
+        return fileHandler.#directory[fileHandler.currentPhotoPosition];
     }
 
     getNextPhoto() {
-        if (fileHandler.#currentPhotoPosition === (fileHandler.#directory.length - 1)) {
+        if (fileHandler.currentPhotoPosition === (fileHandler.#directory.length - 1)) {
             return;
         }
-        fileHandler.#currentPhotoPosition ++;
-        return fileHandler.#directory[fileHandler.#currentPhotoPosition];
+        fileHandler.currentPhotoPosition ++;
+        return fileHandler.#directory[fileHandler.currentPhotoPosition];
     }
 
     getPreviousPhoto() {
-        if (fileHandler.#currentPhotoPosition === 0) {
+        if (fileHandler.currentPhotoPosition === 0) {
             return;
         }
-        fileHandler.#currentPhotoPosition --;
-        return fileHandler.#directory[fileHandler.#currentPhotoPosition];
+        fileHandler.currentPhotoPosition --;
+        return fileHandler.#directory[fileHandler.currentPhotoPosition];
     }
 
     /**
@@ -87,6 +89,11 @@ module.exports = class fileHandler {
         await fs.mkdir(folder + '\\' + name);
     }
 
+    /**
+     * 
+     * @param {string} photoPath 
+     * @param {string} newPath 
+     */
     static async copyPhoto(photoPath, newPath){
         await fs.copyFile(photoPath, newPath);
     }
