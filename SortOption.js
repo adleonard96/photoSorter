@@ -1,6 +1,6 @@
 module.exports = class SortOption {
     static getSortOption(option){
-        return `<label><input type="checkbox" id="${option}" value="${option}" name="sorting-values"/>${option}</label>`
+        return `<div><label><input type="checkbox" id="${option}" value="${option}" name="sorting-values"/>${option}</label></div>`
     }
 
     /**

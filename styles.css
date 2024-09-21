@@ -1,11 +1,63 @@
 :root {
-    color-scheme: light dark;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+    color: white;
   }
-  
-  @media (prefers-color-scheme: dark) {
-    body { background: #333; color: white; }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: #ddd;
+    color: black;
   }
-  
-  @media (prefers-color-scheme: light) {
-    body { background: #ddd; color: black; }
-  }
+}
+
+#imageDude {
+  max-width: 900px;
+
+}
+
+#photoSorter {
+  display: flexbox;
+}
+
+#body {
+  max-height: fit-content;
+  max-width: fit-content;
+}
+
+#instructions {
+  line-height: 0;
+}
+
+#sort-options {
+  border: #ddd;
+  border-width: 10px;
+}
+
+
+.image {
+  display: inline-block;
+  left: 0;
+}
+.option-form {
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+}
+
+.sort-options {
+  border: #ddd;
+}
+.bottom-container {
+  position: relative;
+}
+
+.nav-buttons {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
