@@ -1,8 +1,8 @@
 const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron/main')
 const path = require('node:path')
 const fileHandler  = require('./fileHandler');
-const { webContents } = require('electron');
 const Persistance = require('./Persistance');
+const SortOption = require('./SortOption');
 
 let win;
 function createWindow() {
@@ -38,6 +38,14 @@ ipcMain.handle('file:nextPhoto', async () => {
 ipcMain.handle('file:previousPhoto', async () => {
     let handler = new fileHandler();
     return handler.getPreviousPhoto();
+})
+
+ipcMain.handle('file:getCurrentFolders', () => {
+    return fileHandler.getDirectoryFolders();
+})
+
+ipcMain.handle('element:sortOption', (_, inputVal) => {
+    return SortOption.getSortOption(inputVal);
 })
 
 ipcMain.handle('file:AddSortOption', async (_, options) => {

@@ -3,6 +3,10 @@
 let result;
 let currentPhoto;
 
+/**
+ * create dialog to open folder path & sets photo to first photo in directory
+ * Sets sort options to equal the other folders in the directory 
+ */
 document.getElementById('open-file').addEventListener('click', async () => {
     result = await window.fileHandler.open();
     document.getElementById('folder').innerHTML = result;
@@ -10,11 +14,17 @@ document.getElementById('open-file').addEventListener('click', async () => {
     document.getElementById('imageDude').src = result + '\\' + currentPhoto;
 })
 
+/**
+ * Changes photo to previous photo
+ */
 document.getElementById('previous-photo').addEventListener('click', async () => {
     currentPhoto = await window.fileHandler.getPreviousPhoto();
     document.getElementById('imageDude').src = result + '\\' + currentPhoto;
 })
 
+/**
+ * Grabs next photo in directory & copies photos into selected directories
+ */
 document.getElementById('next-photo').addEventListener('click', async () => {
     let photoPath = `${currentPhoto}`;
     currentPhoto = await window.fileHandler.getNextPhoto();
@@ -30,12 +40,15 @@ document.getElementById('next-photo').addEventListener('click', async () => {
     await window.fileHandler.copyPhoto(photoPath, result, checkedElements);
 })
 
+/**
+ * Adds folder to directory to sort photos into 
+ */
 document.getElementById('photo-grouping-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     let inputVal = document.getElementById('photo-grouping-input').value;
     let currentFolder = document.getElementById('folder').textContent;
     await window.fileHandler.addSortOption(inputVal, currentFolder);
     document.getElementById('photo-grouping-input').value = '';
-    document.getElementById('sort-options').innerHTML = document.getElementById('sort-options').innerHTML + `<label><input type="checkbox" id="${inputVal}" value="${inputVal}" name="sorting-values"/>${inputVal}</label>`
+    document.getElementById('sort-options').innerHTML = document.getElementById('sort-options').innerHTML + await window.element.getNewSortingOption(inputVal);
 })
 

@@ -11,6 +11,11 @@ module.exports = class fileHandler {
     static #directory = [];
 
     /**
+     * @type {string[]}
+     */
+    static #existingFolders = [];
+
+    /**
      * @type {number}
      */
     static currentPhotoPosition = 0;
@@ -37,7 +42,9 @@ module.exports = class fileHandler {
      */
     async getDirectory(folder, lastPosition = 0) {
         fileHandler.currentDirectory = folder;
-        fileHandler.#directory = (await fs.readdir(folder)).filter(this.#isPhotoFile);
+        let files = await fs.readdir(folder);
+        fileHandler.#directory = (files).filter(this.#isPhotoFile);
+        fileHandler.#existingFolders = (files).filter((file) => !file.includes("."));
         fileHandler.currentPhotoPosition = lastPosition;
         return fileHandler.#directory;
     }
@@ -108,5 +115,12 @@ module.exports = class fileHandler {
      */
     static async copyPhoto(photoPath, newPath){
         await fs.copyFile(photoPath, newPath);
+    }
+
+    /**
+     * @returns {string[]}
+     */
+    static getDirectoryFolders(){
+        return fileHandler.#existingFolders;
     }
 }
