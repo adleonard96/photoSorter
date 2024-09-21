@@ -9,7 +9,15 @@ module.exports = class fileHandler {
      * @type {string[]} 
      */
     static #directory = [];
+
+    /**
+     * @type {number}
+     */
     static currentPhotoPosition = 0;
+    
+    /**
+     * @type {string}
+     */
     static currentDirectory;
 
     /**
@@ -27,13 +35,17 @@ module.exports = class fileHandler {
      * @param {string} folder 
      * @returns 
      */
-    async getDirectory(folder) {
+    async getDirectory(folder, lastPosition = 0) {
         fileHandler.currentDirectory = folder;
         fileHandler.#directory = (await fs.readdir(folder)).filter(this.#isPhotoFile);
-        fileHandler.currentPhotoPosition = 0;
+        fileHandler.currentPhotoPosition = lastPosition;
         return fileHandler.#directory;
     }
-
+    
+    /**
+     * 
+     * @returns {Promise<string>}
+     */
     async getCurrentPhoto() {
         return fileHandler.#directory[fileHandler.currentPhotoPosition];
     }

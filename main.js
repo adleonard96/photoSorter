@@ -25,8 +25,9 @@ ipcMain.handle('file:open', async () => {
 
 ipcMain.handle('file:firstPhoto', async (_, directory) => {
     let handler = new fileHandler();
-    let files = await handler.getDirectory(directory[0]);
-    return files[0];
+    let lastPosition = await Persistance.checkPosition(directory[0]);
+    let files = await handler.getDirectory(directory[0], lastPosition);
+    return files[lastPosition];
 })
 
 ipcMain.handle('file:nextPhoto', async () => {
