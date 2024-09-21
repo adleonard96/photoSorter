@@ -44,9 +44,6 @@ ipcMain.handle('file:getCurrentFolders', () => {
     return fileHandler.getDirectoryFolders();
 })
 
-ipcMain.handle('element:sortOption', (_, inputVal) => {
-    return SortOption.getSortOption(inputVal);
-})
 
 ipcMain.handle('file:AddSortOption', async (_, options) => {
     let [option, folder] = options;
@@ -61,6 +58,15 @@ ipcMain.handle('file:copyPhoto', async (_, options) => {
     for(let folder of copyFolders){
         await fileHandler.copyPhoto(rootPath+'\\'+photoPath, rootPath+'\\'+folder+'\\'+photoPath);
     }
+})
+
+ipcMain.handle('element:sortOption', (_, inputVal) => {
+    return SortOption.getSortOption(inputVal);
+})
+
+ipcMain.handle('element:existingSortOptions', () => {
+    let options = fileHandler.getDirectoryFolders();
+    return SortOption.getSortOptions(options);
 })
 
 app.whenReady().then(() => {

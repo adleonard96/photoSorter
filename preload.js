@@ -11,5 +11,6 @@ contextBridge.exposeInMainWorld('fileHandler', {
 })
 
 contextBridge.exposeInMainWorld('element', {
-    getNewSortingOption: (option) => ipcRenderer.invoke('element:sortOption', option)
+    getNewSortingOption: (option) => ipcRenderer.invoke('element:sortOption', option),
+    getExistingSortingOptions: () => ipcRenderer.invoke('element:existingSortOptions')
 })

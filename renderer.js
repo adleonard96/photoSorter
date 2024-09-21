@@ -12,6 +12,7 @@ document.getElementById('open-file').addEventListener('click', async () => {
     document.getElementById('folder').innerHTML = result;
     currentPhoto = await window.fileHandler.getFirstPhoto(result);
     document.getElementById('imageDude').src = result + '\\' + currentPhoto;
+    document.getElementById('sort-options').innerHTML = await window.element.getExistingSortingOptions();
 })
 
 /**
