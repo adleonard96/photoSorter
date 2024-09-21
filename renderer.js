@@ -30,7 +30,6 @@ document.getElementById('next-photo').addEventListener('click', async () => {
     await window.fileHandler.copyPhoto(photoPath, result, checkedElements);
 })
 
-// const fileHandler = require("./fileHandler");
 document.getElementById('photo-grouping-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     let inputVal = document.getElementById('photo-grouping-input').value;
@@ -39,6 +38,4 @@ document.getElementById('photo-grouping-form').addEventListener('submit', async 
     document.getElementById('photo-grouping-input').value = '';
     document.getElementById('sort-options').innerHTML = document.getElementById('sort-options').innerHTML + `<label><input type="checkbox" id="${inputVal}" value="${inputVal}" name="sorting-values"/>${inputVal}</label>`
 })
-// ipcRenderer.on("get-folder-path", (_, folderPath) => {
-//     document.getElementById("folder").innerText = folderPath;
-// })
+
