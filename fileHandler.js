@@ -36,9 +36,10 @@ module.exports = class fileHandler {
     }
 
     /**
-     * 
+     * Gets the files in the directory. Also sets existing folders.
+     * @async
      * @param {string} folder 
-     * @returns 
+     * @returns { Promise<string[]> }
      */
     async getDirectory(folder, lastPosition = 0) {
         fileHandler.currentDirectory = folder;
@@ -50,13 +51,17 @@ module.exports = class fileHandler {
     }
     
     /**
-     * 
+     * Gets current photo name
      * @returns {Promise<string>}
      */
     async getCurrentPhoto() {
         return fileHandler.#directory[fileHandler.currentPhotoPosition];
     }
 
+    /**
+     * Gets next photo in directory if there is one.
+     * @returns {string | void}
+     */
     getNextPhoto() {
         if (fileHandler.currentPhotoPosition === (fileHandler.#directory.length - 1)) {
             return;
@@ -65,6 +70,10 @@ module.exports = class fileHandler {
         return fileHandler.#directory[fileHandler.currentPhotoPosition];
     }
 
+    /**
+     * Returns previous photo if there is one
+     * @returns {string | void}
+     */
     getPreviousPhoto() {
         if (fileHandler.currentPhotoPosition === 0) {
             return;
@@ -74,7 +83,7 @@ module.exports = class fileHandler {
     }
 
     /**
-     * 
+     * Checks to see if a file is a photo. 
      * @param {string} filename
      * @returns {boolean} 
      */
@@ -90,9 +99,10 @@ module.exports = class fileHandler {
     }
 
     /**
-     * 
+     * Checks to see if a folder exists
      * @param {string} name 
      * @param {string} folder
+     * @returns {Promise<boolean>}
      */
     static async checkForFolder(name, folder){
         let folderFound = (await fs.readdir(folder)).filter((fileName) => name.toLocaleLowerCase() === fileName.toLocaleLowerCase());
@@ -100,15 +110,18 @@ module.exports = class fileHandler {
     }
 
     /**
+     * Creates folder with the provided directory
      * 
      * @param {string} name 
      * @param {string} folder
+     * @returns {Promise<void>}
      */
     static async createFolder(name, folder){
         await fs.mkdir(folder + '\\' + name);
     }
 
     /**
+     * Makes a copy of a photo to a new path
      * 
      * @param {string} photoPath 
      * @param {string} newPath 
@@ -118,6 +131,7 @@ module.exports = class fileHandler {
     }
 
     /**
+     * Returns folders in a directory
      * @returns {string[]}
      */
     static getDirectoryFolders(){
